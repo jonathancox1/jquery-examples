@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
     /*
     Make a Todo List
 
@@ -15,25 +16,58 @@
     4. the ability to edit an existing task
 
     */
-    </script>
-    <style>
+    $(function () {
+      $('#add-button').on('click', function () {
+        let inputVal = $('#description').val();
+        console.log(inputVal);
+        let $item = $('<li>');
+        let $check = $('<input type="checkbox">')
+        let $radio = $('<input type="radio">');
+        // set attributes and append items
+        $item.attr('id', inputVal);
+        $item.text(inputVal);
+        $item.append($check)
+        $item.append($radio);
+        // remove item on click 
+        $radio.on('click', function () {
+          $item.fadeToggle('slow');
+        })
+        $check.on('click', function () {
+          $item.html(`<strike>${inputVal}</strike>`)
+        })
+        $('#todo-list').append($item);
+
+
+
+        // clears the input box
+        $('#description').val('');
+      })
+
+    });
+
+  </script>
+  <style>
     #wrapper {
       max-width: 480px;
       margin: auto;
     }
 
-    #description, #search, #todo-list {
+    #description,
+    #search,
+    #todo-list {
       font-size: 1.5em;
     }
-    </style>
-  </head>
-  <body>
-    <div id="wrapper">
-      <input id="description" type="text" name="description">
-      <button id="add-button">Add Task</button>
-      <ul id="todo-list">
-        <li>Feed the cat</li>
-      </ul>
-    </div>
-  </body>
+  </style>
+</head>
+
+<body>
+  <div id="wrapper">
+    <input id="description" type="text" name="description">
+    <button id="add-button" type="submit">Add Task</button>
+    <ul id="todo-list">
+      <li>Feed the cat</li>
+    </ul>
+  </div>
+</body>
+
 </html>
